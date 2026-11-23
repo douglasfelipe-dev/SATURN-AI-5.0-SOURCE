@@ -1,0 +1,12 @@
+import { connect } from './cdp.mjs'
+const c = await connect()
+await c.clickText('button.nav-item', 'Notas')
+await c.wait(400)
+await c.clickText('button.tab', 'Calendário')
+await c.wait(400)
+console.log('TABS', await c.evaluate(`[...document.querySelectorAll('button.tab')].map(b=>b.textContent.trim())`))
+console.log('DAYS', await c.evaluate(`[...document.querySelectorAll('.cal-day')].map(b=>b.textContent.trim()).slice(0,25)`))
+await c.evaluate(`(()=>{const b=[...document.querySelectorAll('.cal-day')].find(x=>x.textContent.trim()==='20');if(b)b.click()})()`)
+await c.wait(500)
+console.log('BODY', (await c.evaluate('document.querySelector(".content")?.innerText||""')).slice(-900))
+c.close()

@@ -1,0 +1,12 @@
+import { connect } from './cdp.mjs'
+const c = await connect()
+await c.send('Page.enable'); await c.send('Page.reload', { ignoreCache: true }); await c.wait(3000)
+await c.clickText('button.nav-item','Notas'); await c.wait(1000)
+await c.clickText('button','Nova nota'); await c.wait(400)
+const v = await c.setInput('.modal input.input', 'Nota DIAG123')
+await c.wait(300)
+console.log('SET', v, 'VALUE', await c.evaluate(`document.querySelector('.modal input.input')?.value`))
+await c.evaluate(`[...document.querySelectorAll('.modal button')].find(b=>b.textContent.trim()==='Salvar')?.click()`)
+await c.wait(800)
+console.log('DB', await c.evaluate(`(async()=>JSON.stringify(await window.api.db.all("SELECT title FROM notes WHERE title='Nota DIAG123'")))()`))
+c.close()

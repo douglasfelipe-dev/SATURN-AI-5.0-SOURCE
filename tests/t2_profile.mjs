@@ -1,0 +1,35 @@
+import { connect, check, summary } from './cdp.mjs'
+import path from 'node:path'
+const c = await connect()
+await c.wait(800)
+await c.clickText('button.nav-item', 'Perfil')
+await c.wait(500)
+
+await c.setInput('.field input.input', 'Douglas Teste')
+await c.clickText('button', 'Salvar alterações')
+await c.wait(400)
+const getSetting = async key => c.evaluate(`(async()=>{const r=await window.api.db.all('SELECT value FROM settings WHERE key=?',[${JSON.stringify(key)}]);return r.rows[0]?JSON.parse(r.rows[0].value):null})()`)
+let s = await getSetting('profileName')
+check('nome salvo no banco', s === 'Douglas Teste', String(s))
+
+const file = path.resolve('tests/fixtures/foto.jpg')
+await c.fileInput('input[type=file]', [file])
+await c.wait(600)
+check('prévia da foto exibida', !!(await c.evaluate('document.querySelector(".avatar-big")?.src')))
+check('botão confirmar foto apareceu', await c.evaluate(`[...document.querySelectorAll('button')].some(b=>b.textContent.includes('Confirmar foto'))`))
+await c.clickText('button', 'Confirmar foto')
+await c.wait(800)
+const avatar = await getSetting('avatar')
+check('foto salva no banco', !!avatar, String(avatar).slice(-40))
+check('arquivo da foto existe', !!avatar && await c.evaluate(`window.api.app.exists(${JSON.stringify(avatar)})`))
+
+await c.send('Page.enable')
+await c.send('Page.reload', { ignoreCache: true })
+await c.wait(3500)
+const chip = await c.evaluate('document.querySelector(".profile-chip")?.textContent?.trim()')
+check('nome no cabeçalho após reiniciar', chip === 'Douglas Teste', chip || '')
+const chipImg = await c.evaluate('document.querySelector(".profile-chip img")?.src')
+check('foto circular no cabeçalho após reiniciar', !!chipImg && chipImg.includes('file:'), (chipImg||'').slice(0,40))
+
+summary('T2 PERFIL')
+c.close()

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SATURN.AI Dashboard 5.0 — Documentação</title>
+<style>
+:root{--bg:#f7f1e8;--card:#fff;--text:#3d3730;--muted:#857d71;--primary:#4f8b62;--accent:#ecaa89;--line:rgba(80,65,45,.12)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.7 'Segoe UI',system-ui,sans-serif}
+header{padding:56px 20px 40px;text-align:center;background:linear-gradient(160deg,#e7dcef,#f7f1e8)}
+.logo{width:76px;height:76px;border-radius:24px;background:#3f6b4b;color:#fff;display:grid;place-items:center;margin:0 auto 16px;font-size:24px;font-weight:700;box-shadow:0 14px 30px rgba(40,80,50,.25)}
+h1{font-family:Georgia,serif;font-size:42px;margin:0;letter-spacing:-1.5px}header p{color:var(--muted);margin:8px 0 0}
+.wrap{max-width:1020px;margin:0 auto;padding:0 22px 70px}
+nav{position:sticky;top:0;background:rgba(247,241,232,.95);backdrop-filter:blur(10px);padding:12px 0;border-bottom:1px solid var(--line);z-index:5;display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+nav a{color:var(--primary);text-decoration:none;font-size:12px;font-weight:600;padding:6px 11px;border-radius:18px}nav a:hover{background:var(--card)}
+section{margin-top:42px}h2{font-family:Georgia,serif;font-size:27px;margin:0 0 8px}
+.lead{color:var(--muted);margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.card{background:var(--card);border-radius:18px;padding:19px;box-shadow:0 8px 24px rgba(91,70,42,.07)}
+.card b{display:block;margin-bottom:6px}.card p{margin:0;font-size:13px;color:var(--muted)}.card .em{font-size:23px;display:block;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;font-size:13px}
+th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line)}th{background:#f1e9dd;font-size:11px;text-transform:uppercase}
+code{background:#eee5d8;padding:2px 7px;border-radius:6px;font-size:12px;word-break:break-all}
+pre{background:#2c312d;color:#dcebdc;padding:16px;border-radius:14px;overflow:auto;font-size:12px}
+.note{background:#fbe3d4;border-left:4px solid var(--accent);border-radius:10px;padding:13px 17px;font-size:13px;margin:16px 0}
+footer{text-align:center;padding:28px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+</style></head>
+<body>
+<header><div class="logo">S</div><h1>SATURN.AI Dashboard</h1><p>Versão 5.0 — evolução estrutural, correções funcionais e testes completos</p></header>
+<nav><a href="#novo">Novidades</a><a href="#midia">Mídias</a><a href="#biblioteca">Biblioteca</a><a href="#arquivos">Arquivos</a><a href="#mesa">Meu Ambiente</a><a href="#cinema">Cinema</a><a href="#tema">Temas</a><a href="#dados">Dados</a></nav>
+<div class="wrap">
+<section id="novo"><h2>1. O que mudou na 5.0</h2>
+<p class="lead">Correções de causa raiz, não apenas visual. Todos os recursos existentes foram preservados e testados.</p>
+<div class="grid">
+<div class="card"><span class="em">🖼️</span><b>Imagens corrigidas</b><p>Arquivos locais passam a ser servidos por HTTP interno — o navegador bloqueia <code>file://</code> a partir de páginas http.</p></div>
+<div class="card"><span class="em">📚</span><b>Biblioteca reformulada</b><p>Estante 2D organizada por categorias, visualizador 3D por livro e leitor de PDF com renderização corrigida.</p></div>
+<div class="card"><span class="em">🎨</span><b>Mesa de trabalho virtual</b><p>Widgets arrastáveis/redimensionáveis, desenho real com desfazer/refazer e diário persistente.</p></div>
+<div class="card"><span class="em">🎬</span><b>Cinema em tela grande</b><p>Ambiente 3D removido; telão 2D ocupa quase toda a área, com tela cheia. Motor do YouTube preservado.</p></div>
+</div></section>
+
+<section id="midia"><h2>2. Imagens, vídeos e áudio</h2>
+<ul>
+<li><b>Perfil e galeria:</b> PNG, JPG, JPEG e WebP com prévia via FileReader, salvamento no banco e persistência.</li>
+<li><b>Vídeos locais:</b> MP4/WebM/MKV/MOV com HTTP + suporte a Range. Mensagens claras para codecs não suportados (H.264/AAC recomendados).</li>
+<li><b>Músicas locais:</b> novo módulo com importação de MP3/WAV/OGG/M4A, playlist, reprodução contínua, volume e metadados básicos.</li>
+</ul></section>
+
+<section id="biblioteca"><h2>3. Biblioteca</h2>
+<p>Estante fixa em 2D, sem sofá ou objetos 3D de fundo. Categorias: Terror, Fantasia, Suspense, Romance, Ficção científica e Outros. Clique na capa para abrir o visualizador 3D (gire, incline e aplique zoom) ou use o botão de leitura para o PDF.</p>
+<p>PDFs são importados por seletor ou arrastar e soltar. Capas são geradas da primeira página e páginas são renderizadas com PDF.js em alta resolução.</p></section>
+
+<section id="arquivos"><h2>4. Gerenciador de arquivos</h2>
+<p>Pastas e subpastas são <b>reais</b> (diretórios criados na biblioteca local), não apenas registros visuais. Criar, renomear, excluir, mover, copiar, pesquisar, abrir e ver propriedades — tudo persiste após reiniciar.</p>
+<pre>%APPDATA%\douglas-felipe-dev\nova-desk-library\files\</pre></section>
+
+<section id="mesa"><h2>5. Meu Ambiente</h2>
+<p>Arraste pelo cabeçalho e redimensione pelo canto; posições e tamanhos são salvos automaticamente. Inclui relógio, calendário, clima, atalhos, notas, tarefas, data, desenho, diário e ferramentas. O botão “Restaurar layout” volta ao original.</p>
+<p>A mesa de desenho tem caneta, lápis, borracha, paleta, espessura, desfazer/refazer, limpar e salvar PNG.</p></section>
+
+<section id="cinema"><h2>6. Cinema</h2>
+<p>Telão 2D amplo (16:9), controles completos, captura de quadro e tela cheia. O mecanismo de reprodução do YouTube (IFrame API + servidor HTTP local) foi preservado exatamente como estava.</p>
+<div class="note">DRM e restrições de incorporação são respeitados. Nada é contornado.</div></section>
+
+<section id="tema"><h2>7. Temas e identidade</h2>
+<p>Barra lateral, ícones, destaques, botões e indicadores agora usam variáveis do tema — nenhuma cor verde fixa permanece. O nome do usuário aparece no topo; a assinatura <code>douglasfelipe.dev · CREATOR</code> fica na base da barra lateral, sem ação de botão.</p></section>
+
+<section id="dados"><h2>8. Armazenamento e versões</h2>
+<pre>%APPDATA%\douglas-felipe-dev\nova-desk.sqlite
+%APPDATA%\douglas-felipe-dev\nova-desk-library\</pre>
+<p>Instalador e portátil usam o mesmo formato de dados. Backups das versões anteriores:</p>
+<pre>_BACKUP_v1.0.0_DouglasFelipe\
+_BACKUP_v2.0.1_DouglasFelipe\</pre>
+<p>O registro completo de mudanças e testes está em <code>CHANGELOG_3.0.md</code> e <code>RELATORIO_TESTES_3.0.md</code>.</p></section>
+</div>
+<footer>SATURN.AI Dashboard v5.0 · Douglas Felipe</footer>
+</body></html>

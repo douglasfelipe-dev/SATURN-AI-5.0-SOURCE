@@ -1,0 +1,10 @@
+import { connect } from './cdp.mjs'
+const c = await connect()
+await c.send('Page.enable')
+await c.send('Page.navigate', { url: 'http://127.0.0.1:5173/' })
+await c.wait(5000)
+console.log('URL', await c.evaluate('location.href'))
+await c.evaluate(`(()=>{const d=document.createElement('div');d.id='testyt';d.style.cssText='position:fixed;left:10px;top:10px;width:300px;height:200px;z-index:9999';document.body.appendChild(d);window.__t=new YT.Player('testyt',{videoId:'dQw4w9WgXcQ',playerVars:{autoplay:1},events:{onError:e=>window.__err=e.data,onStateChange:e=>window.__state=e.data}})})()`)
+await c.wait(9000)
+console.log(await c.evaluate(`JSON.stringify({err:window.__err,state:window.__state,time:window.__t?.getCurrentTime?.()})`))
+c.close()

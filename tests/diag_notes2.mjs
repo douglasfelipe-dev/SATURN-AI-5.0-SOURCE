@@ -1,0 +1,11 @@
+import { connect } from './cdp.mjs'
+const c = await connect()
+await c.send('Page.enable'); await c.send('Page.reload', { ignoreCache: true }); await c.wait(3000)
+await c.clickText('button.nav-item','Notas'); await c.wait(1200)
+console.log('TITLE', await c.text('.page-title'))
+console.log('HAS Nova nota', await c.evaluate(`[...document.querySelectorAll('button')].filter(b=>b.textContent.includes('Nova nota')).length`))
+await c.clickText('button','Nova nota'); await c.wait(700)
+console.log('MODAL', await c.evaluate(`!!document.querySelector('.modal')`))
+console.log('INPUTS', await c.evaluate(`[...document.querySelectorAll('.modal input,.modal textarea')].map(i=>i.tagName+':'+(i.type||'')).join('|')`))
+console.log('BODY', (await c.evaluate(`document.querySelector('.modal')?.innerText||''`)).slice(0,300))
+c.close()
