@@ -1,0 +1,63 @@
+{
+  "name": "douglas-felipe-dev",
+  "version": "5.0.0",
+  "description": "SATURN.AI / DASHBOARD — ambiente digital pessoal, funcional e interativo para Windows",
+  "main": "electron/main.cjs",
+  "author": "Douglas Felipe",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "electron .",
+    "dist": "vite build && electron-builder --win",
+    "pack": "vite build && electron-builder --win --dir"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.2.8",
+    "@fontsource/fraunces": "^5.2.8",
+    "framer-motion": "^14.14.0",
+    "lucide-react": "^0.468.0",
+    "pdfjs-dist": "^6.5.438",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sql.js": "^1.17.0",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.3.0",
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0",
+    "vite": "^8.3.8"
+  },
+  "build": {
+    "appId": "com.douglasfelipe.dev",
+    "productName": "SATURN.AI Dashboard",
+    "copyright": "Copyright © 2026 Douglas Felipe",
+    "directories": { "output": "release-5.0", "buildResources": "build" },
+    "files": ["dist/**/*", "electron/**/*", "package.json"],
+    "extraResources": [
+      { "from": "build/sql-wasm.wasm", "to": "sql-wasm.wasm" },
+      { "from": "docs", "to": "docs" }
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "SATURN.AI 5.0 Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SATURN.AI Dashboard",
+      "deleteAppDataOnUninstall": false
+    },
+    "portable": { "artifactName": "SATURN.AI 5.0 Portable.exe" }
+  }
+}

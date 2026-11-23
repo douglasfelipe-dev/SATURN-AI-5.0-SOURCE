@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+release/
+release-5.0/
+win-unpacked/
+*.exe
+*.blockmap
+.env
+.env.*
+!.env.example
